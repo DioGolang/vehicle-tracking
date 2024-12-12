@@ -11,3 +11,21 @@ GET http://localhost:3000/places?text=av. paulista, 1000
 
 ###
 GET http://localhost:3000/directions?originId={{originId}}&destinationId={{destinationId}}
+
+
+###
+
+POST http://localhost:3000/routes
+Content-Type: application/json
+
+{
+  "name":  "rota1",
+  "source_id": "{{ originId }}",
+  "destination_id": "{{ destinationId }}"
+}
+
+###
+GET http://localhost:3000/routes
+
+###
+GET http://localhost:3000/routes

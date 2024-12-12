@@ -1,4 +1,13 @@
 services:
+
+  nestjs:
+    build: .
+    volumes:
+      - .:/home/node/app:z
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
   db:
     build: ./.docker/mongodb
     environment:
