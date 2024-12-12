@@ -1,0 +1,13 @@
+###
+GET http://localhost:3000/places?text=av. roland garros, 1000
+
+###
+GET http://localhost:3000/places?text=av. paulista, 1000
+
+###
+@originId = ChIJfVrh8pRZzpQRkF4-eSYhud4
+@destinationId = EktBdi4gUm9sYW5kIEdhcnJvcywgMTAwMCAtIFZpbGEgTWVkZWlyb3MsIFPDo28gUGF1bG8gLSBTUCwgMDIyMjMtMjQwLCBCcmFzaWwiMRIvChQKEgkz0WPO7fXOlBGWaRY666QoXxDoByoUChIJK4MHYO31zpQRi1NeizkpjtQ
+###
+
+###
+GET http://localhost:3000/directions?originId={{originId}}&destinationId={{destinationId}}
