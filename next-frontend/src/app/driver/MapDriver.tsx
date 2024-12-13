@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { socket } from "@/utils/socket-io";
 import {useMap} from "@/hooks/useMaps";
 
@@ -18,7 +18,7 @@ export type MapDriverProps = {
 
 export function MapDriver(props: MapDriverProps) {
     const { route_id, start_location, end_location } = props;
-    const mapContainerRef = useRef<HTMLDivElement>(null);
+    const mapContainerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
     const map = useMap(mapContainerRef);
 
     useEffect(() => {

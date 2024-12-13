@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useMap } from "../../hooks/useMap";
 import { DirectionsData } from "@/utils/models";
+import {useMap} from "@/hooks/useMaps";
 
 export type MapNewRouteProps = {
     directionsData: DirectionsData;
@@ -10,7 +10,7 @@ export type MapNewRouteProps = {
 
 export function MapNewRoute(props: MapNewRouteProps) {
     const { directionsData } = props;
-    const mapContainerRef = useRef<HTMLDivElement>(null);
+    const mapContainerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
     const map = useMap(mapContainerRef);
 
     useEffect(() => {

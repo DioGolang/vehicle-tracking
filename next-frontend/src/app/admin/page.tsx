@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useMap } from "../../hooks/useMap";
 import { socket } from "@/utils/socket-io";
+import { useMap } from "@/hooks/useMaps";
 
 export function AdminPage() {
-    const mapContainerRef = useRef<HTMLDivElement>(null);
+    const mapContainerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
     const map = useMap(mapContainerRef);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ export function AdminPage() {
             async (data: { route_id: string; lat: number; lng: number }) => {
                 console.log(data);
                 if (!map.hasRoute(data.route_id)) {
-                    const response = await fetch(`http://localhost:3001/api/routes/${data.route_id}`)
+                    const response = await fetch(`http://localhost:3001/api/routes/${data.route_id}`);
                     const route = await response.json();
                     map.addRouteWithIcons({
                         routeId: data.route_id,
