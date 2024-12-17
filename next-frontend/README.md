@@ -1,7 +1,6 @@
 ## Routes Vehicle
 
-integration with Google Maps
-
+Vehicle and route tracking API integrated with Google Maps
 ## Getting Started
 
 First, run the development server:
