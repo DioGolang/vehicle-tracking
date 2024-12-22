@@ -1,6 +1,6 @@
 ## Routes Vehicle
 
-API de rastreamento de veículos e rotas integrada ao Google Maps,
+API de rastreamento de veículos e rotas integrada ao Google Maps, via kafka
 
 ## Getting Started
 
