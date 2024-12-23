@@ -63,7 +63,7 @@ export async function DriverPage({
                             className="bg-main text-primary p-2 rounded text-xl font-bold"
                             style={{ width: "100%" }}
                         >
-                            Iniciar a viagem
+                            Start the journey
                         </button>
                     </form>
                 </div>
