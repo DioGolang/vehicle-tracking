@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -50,6 +51,7 @@ func (eh *EventHub) handleRouteCreated(event RouteCreatedEvent) error {
 	if err != nil {
 		return err
 	}
+	err = eh.freightWriter.WriteMessages(context.Background(), kafka.Message{Value: value})
 	return nil
 }
 
