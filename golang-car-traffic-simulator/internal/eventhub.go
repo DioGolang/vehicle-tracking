@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/segmentio/kafka-go"
 	"go.mongodb.org/mongo-driver/mongo"
+	"time"
 )
 
 type EventHub struct {
@@ -51,7 +52,17 @@ func (eh *EventHub) handleRouteCreated(event RouteCreatedEvent) error {
 	if err != nil {
 		return err
 	}
-	err = eh.freightWriter.WriteMessages(context.Background(), kafka.Message{Value: value})
+	value, err := json.Marshal(freightCalculatedEvent)
+	if err != nil {
+		return fmt.Errorf("error marshalling event")
+	}
+	err = eh.freightWriter.WriteMessages(context.Background(), kafka.Message{
+		Key:   []byte(freightCalculatedEvent.RouteID),
+		Value: value,
+	})
+	if err != nil {
+		return fmt.Errorf("error writing message")
+	}
 	return nil
 }
 
@@ -60,7 +71,30 @@ func (eh *EventHub) handleDeliveryStartedEvent(event DeliveryStartedEvent) error
 	if err != nil {
 		return err
 	}
+
+	go eh.sendPositions()
 	return nil
+}
+
+func (eh *EventHub) sendPositions() {
+	for {
+		select {
+		case movedEvent := <-eh.chDriverMoved:
+			value, err := json.Marshal(movedEvent)
+			if err != nil {
+				return
+			}
+			err = eh.simulatorWriter.WriteMessages(context.Background(), kafka.Message{
+				Key:   []byte(movedEvent.RouteID),
+				Value: value,
+			})
+			if err != nil {
+				return
+			}
+		case <-time.After(500 * time.Millisecond):
+			return
+		}
+	}
 }
 
 //1:45 project  simulator car traffic event
