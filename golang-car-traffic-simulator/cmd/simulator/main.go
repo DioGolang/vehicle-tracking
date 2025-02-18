@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/DioGolang/vehicle-tracking/golang-car-traffic-simulator/internal"
+	"github.com/segmentio/kafka-go"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,6 +17,22 @@ func main() {
 	}
 	freightService := internal.NewFreightService()
 	routeService := internal.NewRouteService(mongoConnection, freightService)
+
+	chDriverMoved := make(chan *internal.DriverMovedEvent)
+	kafkaBroker := "localhost9092"
+
+	freightWriter := &kafka.Writer{
+		Addr:     kafka.TCP(kafkaBroker),
+		Topic:    "freight",
+		Balancer: &kafka.LeastBytes{},
+	}
+
+	freightWriter := &kafka.Writer{
+		Addr:     kafka.TCP(kafkaBroker),
+		Topic:    "simulator",
+		Balancer: &kafka.LeastBytes{},
+	}
+
 	routeCreatedEvent := internal.NewRouteCreatedEvent(
 		"1",
 		100,

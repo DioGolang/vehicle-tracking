@@ -72,11 +72,11 @@ func (eh *EventHub) handleDeliveryStartedEvent(event DeliveryStartedEvent) error
 		return err
 	}
 
-	go eh.sendPositions()
+	go eh.sendDirections()
 	return nil
 }
 
-func (eh *EventHub) sendPositions() {
+func (eh *EventHub) sendDirections() {
 	for {
 		select {
 		case movedEvent := <-eh.chDriverMoved:
@@ -97,4 +97,4 @@ func (eh *EventHub) sendPositions() {
 	}
 }
 
-//1:45 project  simulator car traffic event
+//2:00 project  simulator car traffic event
