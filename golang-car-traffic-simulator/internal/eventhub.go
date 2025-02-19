@@ -18,6 +18,16 @@ type EventHub struct {
 	simulatorWriter *kafka.Writer
 }
 
+func NewEventHub(routeService *RouteService, mongoClient *mongo.Client, chDriverMoved chan *DriverMovedEvent, freightWriter *kafka.Writer, simulatorWriter *kafka.Writer) *EventHub {
+	return &EventHub{
+		RouteService:    routeService,
+		mongoClient:     mongoClient,
+		chDriverMoved:   chDriverMoved,
+		freightWriter:   freightWriter,
+		simulatorWriter: simulatorWriter,
+	}
+}
+
 func (eh *EventHub) HandlerEvent(msg []byte) error {
 	var baseEvent struct {
 		EventName string `json:"event"`

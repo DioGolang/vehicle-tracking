@@ -27,7 +27,7 @@ func main() {
 		Balancer: &kafka.LeastBytes{},
 	}
 
-	freightWriter := &kafka.Writer{
+	simulatorWriter := &kafka.Writer{
 		Addr:     kafka.TCP(kafkaBroker),
 		Topic:    "simulator",
 		Balancer: &kafka.LeastBytes{},
